@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+    {% block body %}
+  
+
+    {% if error == "No" %}
+        <div class="card shadow mx-auto mt-5" style="width: 30rem; background-color: rgba(208, 159, 159, 0.9);">
+        <div class="card-body">
+        <img src="{{filePathName}}" alt="imagename" style="width: 100%;">
+        <hr>
+        <table class='table table-bordered-dark'>
+          <tr align="center">
+          <td colspan="4" style="font-size: 20px; color: red;">Prediction Result</td>
+        </tr>
+        <tr>
+          <th>Condition</th>
+          <th>Confidance</th>
+        </tr>
+        <tr>
+          <td>{{predictedLabel}}</td>
+          <td>{{predPercentage}} <span>%</span></td>
+        </tr>
+        </table>
+        </div>
+        </div>
+        
+        
+
+    {% else%}
+        <div class="card shadow mx-auto mt-5" style="width: 30rem; background-color: rgba(208, 159, 159, 0.9);">
+        <div class="card-body">
+        <form method="post" enctype="multipart/form-data" action="prediction">
+          {% csrf_token %}
+          <div class="upload">
+            <label><h5>
+              Upload an image here :</h5>
+            </label>          
+          </div>
+          
+          <div class="rectange" style=" height: 200px; background: rgba(208, 215, 214, 0.6) ;">
+            <input name="choose image" type="file">
+          </div>
+          <br>
+        
+          <input class="btn btn-primary" type="submit" name="submit">
+          <br><br>
+        </form>
+        </div>
+        </div>
+    {% endif %}
+
+
+    {% if error == "yes" %}
+    <script>
+        alert('ERROR');
+    </script>
+    {% endif %}
+
+    {% endblock %}
+
+   
+    
